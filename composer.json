@@ -1,0 +1,24 @@
+{
+  "name": "labcoding/merge-module-config",
+  "description": "ZF2 module for automated merging config files in modules",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["zf2", "merge", "merge config files", "merge module config"],
+  "homepage": "https://github.com/labcoding/MergeModuleConfig",
+  "authors": [
+    {
+      "name": "D Bogdanovich",
+      "email": "d.bogdanovich@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+
+    "zendframework/zend-modulemanager": "~2.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "LabCoding\\MergeModuleConfig\\": "src/"
+    }
+  }
+}
