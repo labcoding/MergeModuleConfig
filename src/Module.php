@@ -36,18 +36,22 @@ class Module implements AutoloaderProviderInterface
         $events->attach(ModuleEvent::EVENT_LOAD_MODULE, array($this, 'onLoadModule'));
     }
 
-
+    /**
+     * @param ModuleEvent $e
+     */
     public function onLoadModule(ModuleEvent $e)
     {
         /** @var ConfigListener $configListener */
         $configListener = $e->getParam('configListener');
         $configListener->onLoadModule($e);
 
-        foreach (new \DirectoryIterator(getcwd() . '/module/' . $e->getModuleName() . '/config') as $fileInfo) {
+        $modulePath = str_replace('\\', '/', $e->getModuleName());
+
+        foreach (new \DirectoryIterator(getcwd() . '/module/' . $modulePath . '/config') as $fileInfo) {
             if ($fileInfo->isDot() || $fileInfo->getFilename() == 'module.config.php') {
                 continue;
             }
-            $file = 'module/' . $e->getModuleName() . '/config/' . $fileInfo->getFilename();
+            $file = 'module/' . $modulePath . '/config/' . $fileInfo->getFilename();
             $configListener->addConfigStaticPath($file);
         }
     }
