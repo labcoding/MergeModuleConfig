@@ -1,6 +1,7 @@
 # ZF2 MergeModuleConfig module
 
 This module automated merging config files in modules.
+All `*.php` files in `ModuleName/config/autoload` folder will be merged automatically.
 
 If you have many "....config.php" files in one module, for sample:
 <pre>
@@ -9,13 +10,13 @@ If you have many "....config.php" files in one module, for sample:
     - controller.config.php
 </pre>
     
-Marge Module Config merged all files in config folder, and you don't need to write some like this 
+Marge Module Config merged all files in `config/autoload` folder, and you don't need to write some like this 
 ```php
 <?php
     return array(
-        include "route.config.php",
-        include "service_manger.config.php",
-        include "controller.config.php",
+       'sebaks-view' => require_once 'sebaks-view.config.php',
+       'router' => require_once 'router.config.php',
+        'controllers' => require_once "controllers.config.php",
     );
 ```
 
@@ -36,8 +37,8 @@ and some similar code in module.config.php file:
 ```php
 <?php
     return array(
-        require 'sebaks-view.config.php',
-        require 'router.config.php',
+        'sebaks-view' => require_once 'sebaks-view.config.php',
+        'router' => require_once 'router.config.php',
     
        'view_manager' => array(
             'template_path_stack' => array(
@@ -62,8 +63,16 @@ After including `LabCoding\MergeModuleConfig` your code in module.config.php fil
     );
 ```
 
-and file structure will remain the same.
+and file structure config folder change to:
 
+Application
+  - config
+    - autoload
+      - route.config.php
+      - service_manger.config.php
+      - controllers.config.php
+    - module.config.php
+  - ....
 
 ## Installation
 
@@ -71,7 +80,7 @@ Add this project in your composer.json:
 
 ```json
 "require": {
-    "labcoding/merge-module-config": "~0.0.1"
+    "labcoding/merge-module-config": "~2.0.0"
 }
 ```
 
@@ -103,3 +112,6 @@ Enabling it in your `application.config.php`file.
         // ...
     );
 ```
+
+Add `config/autoload` folder and place it in the configuration files.
+All `*.php` files in `ModuleName/config/autoload` folder will be merged automatically.
