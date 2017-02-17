@@ -46,16 +46,14 @@ class Module implements AutoloaderProviderInterface
         $configListener->onLoadModule($e);
 
         $modulePath = str_replace('\\', '/', $e->getModuleName());
-
-        $path = 'module/' . $modulePath . '/config/autoload';
-
+        $path = 'module/' . $modulePath . '/config';
         if(!is_dir($path)) return;
 
-        foreach (new \DirectoryIterator(getcwd() . '/' . $path) as $fileInfo) {
-            if ($fileInfo->isDot()) {
+        foreach (new \DirectoryIterator(getcwd() . '/module/' . $modulePath . '/config') as $fileInfo) {
+            if ($fileInfo->isDot() || $fileInfo->getFilename() == 'module.config.php' || $fileInfo->getFilename() == 't4web-crud.local.php') {
                 continue;
             }
-            $file = $path . '/' . $fileInfo->getFilename();
+            $file = 'module/' . $modulePath . '/config/' . $fileInfo->getFilename();
             $configListener->addConfigStaticPath($file);
         }
     }
