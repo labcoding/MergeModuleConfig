@@ -16,7 +16,7 @@ Marge Module Config merged all files in `config/autoload` folder, and you don't 
     return array(
        'sebaks-view' => require_once 'sebaks-view.config.php',
        'router' => require_once 'router.config.php',
-        'controllers' => require_once "controllers.config.php",
+       'controllers' => require_once "controllers.config.php",
     );
 ```
 
