@@ -52,9 +52,10 @@ class Module implements AutoloaderProviderInterface
         if(!is_dir($path)) return $configListener;
 
         foreach (new \DirectoryIterator(getcwd() . '/' . $path) as $fileInfo) {
-            if ($fileInfo->isDot()) {
+            if ($fileInfo->isFile() == false || $fileInfo->getExtension() != 'php') {
                 continue;
             }
+            
             $file = $path . '/' . $fileInfo->getFilename();
             $configListener->addConfigStaticPath($file);
         }
